@@ -1,0 +1,24 @@
+{{ include "tentacle_helm.configmap" . }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pre-enricher-service
+  namespace: {{ $.Release.Namespace }}
+spec:
+  storageClassName: ""
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 350000Gi
+  selector:
+    matchLabels:
+      name: nfs-{{ $.Release.Namespace }}-enricher
+      type: nfs
+---
+{{ include "tentacle_helm.sealedsecret" . }}
+---
+{{ include "tentacle_helm.deployment" . }}
+---
+{{ include "tentacle_helm.service" . }}

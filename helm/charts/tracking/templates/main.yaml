@@ -1,0 +1,7 @@
+{{ include "tentacle_helm.configmap" . }}
+---
+{{ include "tentacle_helm.sealedsecret" . }}
+---
+{{ include "tentacle_helm.deployment" . }}
+---
+{{ include "tentacle_helm.service" . }}

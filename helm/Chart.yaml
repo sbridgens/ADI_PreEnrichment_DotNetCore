@@ -1,0 +1,14 @@
+apiVersion: v2
+appVersion: 0.1.0.SNAPSHOT
+name: pre-enricher-bundle
+description: UK pre-enricher Service Bundle
+home: https://bitbucket.upc.biz/projects/SPARK/repos/pre-enricher
+icon: https://bitbucket.upc.biz/projects/SPARK/avatar.png
+type: application
+kubeVersion: ">=1.12.0-0"
+maintainers:
+- email: Fiodar_Mikhiayonak@epam.com
+  name: Fiodar Mikhiayonak
+sources:
+- https://bitbucket.upc.biz/projects/SPARK/repos/pre-enricher
+version: 0.1.0.SNAPSHOT

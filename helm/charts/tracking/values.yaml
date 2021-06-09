@@ -1,0 +1,28 @@
+configMap:
+  AWS_DEFAULT_REGION: eu-west-1
+microservice:
+  replicas: 1
+  containerPort: 8081
+  containerAdminPort: 8081
+  image:
+    repository: registry.lgi.io/libertyglobal/pre-enricher-tracking
+  prometheus:
+    path: /metrics
+  volumes:
+    pre-enricher-tracking:
+      enabled: false
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: 1
+    limits:
+      memory: "1024Mi"
+      cpu: 1
+  livenessProbe:
+    httpGet:
+      path: /healthz
+      port: 8081
+  readinessProbe:
+    httpGet:
+      path: /healthz
+      port: 8081

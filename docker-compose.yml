@@ -1,0 +1,55 @@
+version: '3.1'
+
+services:
+  
+  pre-enrichment:
+    build: 
+      context: ./
+      dockerfile: ./service/Dockerfile
+    container_name: pre-enricher-service
+    depends_on:
+      - "db"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Release
+    volumes:
+    - /tmp/data:/app/data
+    ports:
+      - 10001:8081
+
+  update-generator:
+    build:
+      context: ./
+      dockerfile: ./generator/Dockerfile
+    container_name: pre-enricher-generator
+    environment:
+      ASPNETCORE_ENVIRONMENT: Release
+    volumes:
+      - /tmp/data:/app/data
+    depends_on:
+      - "db"
+    ports:
+      - 10002:8081
+
+  update-tracking:
+    build:
+      context: ./
+      dockerfile: ./tracking/Dockerfile
+    container_name: pre-enricher-tracking
+    environment:
+      ASPNETCORE_ENVIRONMENT: Release
+    depends_on:
+      - "db"
+    ports:
+      - 10003:8081
+
+  db:
+    image: postgres
+    restart: always
+    container_name: database
+    environment:
+      POSTGRES_DB: ADI_DB
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+
+    ports: 
+      - 5432:5432
